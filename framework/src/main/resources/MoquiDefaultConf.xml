@@ -248,7 +248,7 @@
             <response-header type="screen-resource-text" name="Cache-Control" value="max-age=86400, must-revalidate, public"/>
             <response-header type="screen-resource-template" name="Cache-Control" value="no-cache, no-store, must-revalidate, private"/>
             <response-header type="screen-server-static" name="Cache-Control" value="max-age=86400, must-revalidate, public"/>
-            <response-header type="screen-secure" name="Strict-Transport-Security" value="max-age=31536000"/>
+            <response-header type="screen-secure" name="Strict-Transport-Security" value="max-age=31536000; includeSubDomains"/>
             <response-header type="screen-render" name="Cache-Control" value="no-cache, no-store, must-revalidate, private"/>
             <!--
             Content-Security-Policy by default to not allow use in iframe or allow form actions on different host
@@ -259,8 +259,8 @@
                 see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/default-src
                 value="frame-ancestors 'none'; form-action 'self'; default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com;"
             -->
-            <response-header type="screen-render" name="Content-Security-Policy" value="frame-ancestors 'none'; form-action 'self';"/>
-            <response-header type="screen-render" name="X-Frame-Options" add="true" value="sameorigin"/>
+            <response-header type="screen-render" name="Content-Security-Policy" value="form-action 'self'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests; block-all-mixed-content"/>
+            <response-header type="screen-render" name="X-Frame-Options" add="true" value="deny"/>
             <!-- X-XSS-Protection: this is largely useless with the Content-Security-Policy but here because some web security scanners look for it -->
             <response-header type="screen-render" name="X-XSS-Protection" value="1; mode=block"/>
             <!-- X-Content-Type-Options: this could cause problems as much as help but here because some web security scanners look for it -->
