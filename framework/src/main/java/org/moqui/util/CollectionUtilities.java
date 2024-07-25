@@ -482,12 +482,12 @@ public class CollectionUtilities {
                     if (colValue instanceof Map) {
                         output.putAll(flattenNestedMapWithKeys((Map<String, Object>) colValue, newKey + "[" + index + "]"));
                     } else {
-                        output.put(newKey + "[" + index + "]", colValue.toString());
+                        output.put(newKey + "[" + index + "]", colValue != null ? colValue.toString() : null);
                     }
                     index++;
                 }
             } else {
-                output.put(newKey, value.toString());
+                output.put(newKey, value != null ? value.toString() : null);
             }
         }
         return output;

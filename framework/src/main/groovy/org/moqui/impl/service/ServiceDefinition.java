@@ -38,7 +38,7 @@ import java.util.*;
 public class ServiceDefinition {
     protected static final Logger logger = LoggerFactory.getLogger(ServiceDefinition.class);
     private static final EmailValidator emailValidator = EmailValidator.getInstance();
-    private static final UrlValidator urlValidator = new UrlValidator(UrlValidator.ALLOW_ALL_SCHEMES);
+    private static final UrlValidator urlValidator = new UrlValidator(UrlValidator.ALLOW_LOCAL_URLS);
 
     public final ServiceFacadeImpl sfi;
     public final MNode serviceNode;
