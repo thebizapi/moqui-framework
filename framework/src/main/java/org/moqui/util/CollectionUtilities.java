@@ -464,6 +464,7 @@ public class CollectionUtilities {
         return flattenNestedMapWithKeys(theMap, "");
     }
 
+    @SuppressWarnings("unchecked")
     private static Map<String, String> flattenNestedMapWithKeys(Map<String, Object> theMap, String parentKey) {
         Map<String, String> output = new LinkedHashMap<>();
 
