@@ -19,7 +19,8 @@ jobs:
         curl -s "https://get.sdkman.io" | bash
         source "/home/runner/.sdkman/bin/sdkman-init.sh"
         sdk install java 11.0.24-tem
-        sed -i 's/github-ssh/github/' myaddons.xml
-        ./gradlew getRu dOS getComponentSet -PcomponentSet=thebizapi addRu
-        cd docker/simple
-        ./docker-build.sh ../.. thebizapi/thebizapi:$(date +%s)
+        ls -al ~/.ssh
+#        sed -i 's/github-ssh/github/' myaddons.xml
+#        ./gradlew getRu dOS getComponentSet -PcomponentSet=thebizapi addRu
+#        cd docker/simple
+#        ./docker-build.sh ../.. thebizapi/thebizapi:$(date +%s)
