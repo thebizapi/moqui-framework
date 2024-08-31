@@ -17,6 +17,7 @@ jobs:
     - name: Build the Docker image
       run: |
         curl -s "https://get.sdkman.io" | bash
+        source "/home/runner/.sdkman/bin/sdkman-init.sh"
         sdk install java 11.0.24-tem
         ./gradlew getRu dOS getComponentSet -PcomponentSet=thebizapi addRu
         cd docker/simple
