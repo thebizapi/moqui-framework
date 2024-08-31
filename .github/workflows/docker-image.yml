@@ -29,9 +29,7 @@ jobs:
         echo "${{ secrets.PRIVATE_SSH_KEY }}" > id_ed25519
         chmod 600 id_ed25519
         ssh-add id_ed25519
-        ./gradlew getRu getCompSet -PcomponentSet=thebizapi dOS addRu
-        cd docker/simple
-        ./docker-build.sh ../.. thebizapi/thebizapi:$(date +%s)
+        ./gradlew getRu
 
     - name: Cache OpenSearch
       uses: actions/cache@v4
@@ -52,10 +50,6 @@ jobs:
 
     - name: Build the Docker image
       run: |
-        eval "$(ssh-agent -s)"
-        echo "${{ secrets.PRIVATE_SSH_KEY }}" > id_ed25519
-        chmod 600 id_ed25519
-        ssh-add id_ed25519
-        ./gradlew getRu getCompSet -PcomponentSet=thebizapi dOS addRu
+        ./gradlew getCompSet -PcomponentSet=thebizapi dOS addRu
         cd docker/simple
         ./docker-build.sh ../.. thebizapi/thebizapi:$(date +%s)
