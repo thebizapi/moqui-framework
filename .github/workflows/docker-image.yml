@@ -24,6 +24,27 @@ jobs:
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
 
+    - name: Cache Gradle dependencies
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}
+        restore-keys: |
+          gradle-${{ runner.os }}-
+
+    - name: Cache OpenSearch and other directories
+      uses: actions/cache@v4
+      with:
+        path: |
+          runtime/opensearch
+          runtime/base-component/webroot/screen/webroot/libs
+          runtime/base-component/webroot/screen/webroot/js
+        key: cache-${{ runner.os }}-${{ hashFiles('runtime/opensearch/**', 'runtime/base-component/webroot/screen/webroot/libs/**') }}
+        restore-keys: |
+          cache-${{ runner.os }}-
+
     - name: Build the Docker image
       run: |
         eval "$(ssh-agent -s)"
