@@ -32,7 +32,7 @@ For an overview of features see:
 
 <https://www.moqui.org/docs/framework/Framework+Features>
 
-Get started with Moqui development quickly using the Tutorial at:
+Get started with Moqui development quickly using the Tutorial at
 
 <https://www.moqui.org/docs/framework/Quick+Tutorial>
 
