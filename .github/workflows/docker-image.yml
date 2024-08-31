@@ -13,9 +13,6 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-      with:
-        ssh-key: ${{ secrets.PRIVATE_SSH_KEY }}
-
     - name: Set up Java
       uses: actions/setup-java@v4
       with:
@@ -24,6 +21,9 @@ jobs:
 
     - name: Build the Docker image
       run: |
+        echo "${{ secrets.PRIVATE_SSH_KEY }}" > ~/.ssh/id_ed25519
+        ssh-add ~/.ssh/id_ed25519
+        ssh -T git@github.com
         # /usr/bin/git config --list --global
         # curl -s "https://get.sdkman.io" | bash
         # source "/home/runner/.sdkman/bin/sdkman-init.sh"
