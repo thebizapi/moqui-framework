@@ -13,37 +13,42 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+
     - name: Set up Java
       uses: actions/setup-java@v4
       with:
         java-version: '11'
         distribution: 'temurin'
 
-    # Configure Gradle for optimal use in GitHub Actions, including caching of downloaded dependencies.
-    # See: https://github.com/gradle/actions/blob/main/setup-gradle/README.md
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
 
-    - name: Cache Gradle dependencies
-      uses: actions/cache@v4
-      with:
-        path: |
-          ~/.gradle/caches
-          ~/.gradle/wrapper
-        key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}
-        restore-keys: |
-          gradle-${{ runner.os }}-
+    - name: Build the Docker image
+      run: |
+        eval "$(ssh-agent -s)"
+        echo "${{ secrets.PRIVATE_SSH_KEY }}" > id_ed25519
+        chmod 600 id_ed25519
+        ssh-add id_ed25519
+        ./gradlew getRu getCompSet -PcomponentSet=thebizapi dOS addRu
+        cd docker/simple
+        ./docker-build.sh ../.. thebizapi/thebizapi:$(date +%s)
 
-    - name: Cache OpenSearch and other directories
+    - name: Cache OpenSearch
+      uses: actions/cache@v4
+      with:
+        path: runtime/opensearch
+        key: opensearch-${{ runner.os }}-${{ hashFiles('build.gradle') }}
+        restore-keys: |
+          opensearch-${{ runner.os }}-
+
+    - name: Cache JavaScript build artifacts
       uses: actions/cache@v4
       with:
         path: |
-          runtime/opensearch
           runtime/base-component/webroot/screen/webroot/libs
-          runtime/base-component/webroot/screen/webroot/js
-        key: cache-${{ runner.os }}-${{ hashFiles('runtime/opensearch/**', 'runtime/base-component/webroot/screen/webroot/libs/**') }}
+        key: js-${{ runner.os }}-${{ hashFiles('runtime/base-component/webroot/build.gradle') }}
         restore-keys: |
-          cache-${{ runner.os }}-
+          js-${{ runner.os }}-
 
     - name: Build the Docker image
       run: |
