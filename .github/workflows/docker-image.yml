@@ -24,11 +24,11 @@ jobs:
 
     - name: Build the Docker image
       run: |
-        /usr/bin/git config --list --global
+        # /usr/bin/git config --list --global
         # curl -s "https://get.sdkman.io" | bash
         # source "/home/runner/.sdkman/bin/sdkman-init.sh"
         # sdk install java 11.0.24-tem
         # sed -i 's/github-ssh/github/' myaddons.xml
-        ./gradlew getRu dOS getComponentSet -PcomponentSet=thebizapi addRu
+        ./gradlew getRu getComponentSet -PcomponentSet=thebizapi dOS addRu
         # cd docker/simple
         # ./docker-build.sh ../.. thebizapi/thebizapi:$(date +%s)
