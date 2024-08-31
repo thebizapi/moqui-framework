@@ -17,12 +17,16 @@ jobs:
       with:
         ssh-key: ${{ secrets.PRIVATE_SSH_KEY }}
     - name: Build the Docker image
+      uses: actions/setup-java@v4
+      with:
+        java-version: '11'
+        distribution: 'temurin'
       run: |
-        curl -s "https://get.sdkman.io" | bash
-        source "/home/runner/.sdkman/bin/sdkman-init.sh"
-        sdk install java 11.0.24-tem
         ls -al ~/.ssh
+#        curl -s "https://get.sdkman.io" | bash
+#        source "/home/runner/.sdkman/bin/sdkman-init.sh"
+#        sdk install java 11.0.24-tem
 #        sed -i 's/github-ssh/github/' myaddons.xml
-#        ./gradlew getRu dOS getComponentSet -PcomponentSet=thebizapi addRu
+        ./gradlew getRu dOS getComponentSet -PcomponentSet=thebizapi addRu
 #        cd docker/simple
 #        ./docker-build.sh ../.. thebizapi/thebizapi:$(date +%s)
