@@ -19,21 +19,17 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
 
+    # Configure Gradle for optimal use in GitHub Actions, including caching of downloaded dependencies.
+    # See: https://github.com/gradle/actions/blob/main/setup-gradle/README.md
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
+
     - name: Build the Docker image
       run: |
         eval "$(ssh-agent -s)"
         echo "${{ secrets.PRIVATE_SSH_KEY }}" > id_ed25519
         chmod 600 id_ed25519
         ssh-add id_ed25519
-        # /usr/bin/git config --list --global
-        # curl -s "https://get.sdkman.io" | bash
-        # source "/home/runner/.sdkman/bin/sdkman-init.sh"
-        # sdk install java 11.0.24-tem
-        # sed -i 's/github-ssh/github/' myaddons.xml
-        ./gradlew getRu 
-        cd runtime/component
-        git clone git@github.com:thebizapi/thebizapi
-        cd ../..
-        ./gradlew getDepends dOS addRu
+        ./gradlew getRu getCompSet -PcomponentSet=thebizapi dOS addRu
         # cd docker/simple
         # ./docker-build.sh ../.. thebizapi/thebizapi:$(date +%s)
