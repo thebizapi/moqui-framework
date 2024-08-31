@@ -24,7 +24,7 @@ jobs:
 
     - name: Build the Docker image
       run: |
-        ls -al ~/.ssh
+        git config --list --global
         # curl -s "https://get.sdkman.io" | bash
         # source "/home/runner/.sdkman/bin/sdkman-init.sh"
         # sdk install java 11.0.24-tem
