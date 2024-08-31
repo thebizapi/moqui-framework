@@ -2,31 +2,33 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "thebizapi" ]
+    branches: ["thebizapi"]
   pull_request:
-    branches: [ "thebizapi" ]
+    branches: ["thebizapi"]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
       with:
         ssh-key: ${{ secrets.PRIVATE_SSH_KEY }}
-    - name: Build the Docker image
+
+    - name: Set up Java
       uses: actions/setup-java@v4
       with:
         java-version: '11'
         distribution: 'temurin'
+
+    - name: Build the Docker image
       run: |
         ls -al ~/.ssh
-#        curl -s "https://get.sdkman.io" | bash
-#        source "/home/runner/.sdkman/bin/sdkman-init.sh"
-#        sdk install java 11.0.24-tem
-#        sed -i 's/github-ssh/github/' myaddons.xml
+        # curl -s "https://get.sdkman.io" | bash
+        # source "/home/runner/.sdkman/bin/sdkman-init.sh"
+        # sdk install java 11.0.24-tem
+        # sed -i 's/github-ssh/github/' myaddons.xml
         ./gradlew getRu dOS getComponentSet -PcomponentSet=thebizapi addRu
-#        cd docker/simple
-#        ./docker-build.sh ../.. thebizapi/thebizapi:$(date +%s)
+        # cd docker/simple
+        # ./docker-build.sh ../.. thebizapi/thebizapi:$(date +%s)
