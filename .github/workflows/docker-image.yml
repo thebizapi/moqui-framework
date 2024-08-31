@@ -23,6 +23,7 @@ jobs:
       run: |
         eval "$(ssh-agent -s)"
         echo "${{ secrets.PRIVATE_SSH_KEY }}" > id_ed25519
+        chmod 600 id_ed25519
         ssh-add id_ed25519
         ls -al 
         ssh -T git@github.com
