@@ -33,6 +33,6 @@ jobs:
         cd runtime/component
         git clone git@github.com:thebizapi/thebizapi
         cd ../..
-        ./gradlew getComponentSet -PcomponentSet=thebizapi dOS addRu
+        ./gradlew getComponent -Pcomponent=MarbleERP dOS addRu
         # cd docker/simple
         # ./docker-build.sh ../.. thebizapi/thebizapi:$(date +%s)
