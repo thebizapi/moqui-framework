@@ -22,9 +22,9 @@ jobs:
     - name: Build the Docker image
       run: |
         eval "$(ssh-agent -s)"
-        echo "${{ secrets.PRIVATE_SSH_KEY }}" > ~/.ssh/id_ed25519
-        ssh-add ~/.ssh/id_ed25519
-        ls -al ~/.ssh
+        echo "${{ secrets.PRIVATE_SSH_KEY }}" > id_ed25519
+        ssh-add id_ed25519
+        ls -al 
         ssh -T git@github.com
         # /usr/bin/git config --list --global
         # curl -s "https://get.sdkman.io" | bash
