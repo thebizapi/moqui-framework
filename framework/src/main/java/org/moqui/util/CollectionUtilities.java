@@ -483,12 +483,12 @@ public class CollectionUtilities {
                     if (colValue instanceof Map) {
                         output.putAll(flattenNestedMapWithKeys((Map<String, Object>) colValue, newKey + "[" + index + "]"));
                     } else {
-                        output.put(newKey + "[" + index + "]", colValue != null ? colValue.toString() : null);
+                        output.put(newKey + "[" + index + "]", colValue.toString());
                     }
                     index++;
                 }
             } else {
-                output.put(newKey, value != null ? value.toString() : null);
+                output.put(newKey, value.toString());
             }
         }
         return output;
