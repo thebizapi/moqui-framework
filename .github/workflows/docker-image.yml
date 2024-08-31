@@ -31,5 +31,5 @@ jobs:
         chmod 600 id_ed25519
         ssh-add id_ed25519
         ./gradlew getRu getCompSet -PcomponentSet=thebizapi dOS addRu
-        # cd docker/simple
-        # ./docker-build.sh ../.. thebizapi/thebizapi:$(date +%s)
+        cd docker/simple
+        ./docker-build.sh ../.. thebizapi/thebizapi:$(date +%s)
