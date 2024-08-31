@@ -1,0 +1,23 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "thebizapi" ]
+  pull_request:
+    branches: [ "thebizapi" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build the Docker image
+      run: |
+        curl -s "https://get.sdkman.io" | bash
+        sdk install java 11.0.24-tem
+        ./gradlew getRu dOS getComponentSet -PcomponentSet=thebizapi addRu
+        cd docker/simple
+        ./docker-build.sh ../.. thebizapi/thebizapi:$(date +%s)
